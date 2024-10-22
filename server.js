@@ -2,10 +2,12 @@
 const express = require ("express")
 const mongoose = require ("mongoose")
 const app = express()
-const server_config = require("./configs/server.configs")
-const db_config = require ("./configs/db.configs")
-const user_model = require("./models/user.models")
+const server_config = require("../authauthor_project/configs/server.configs")
+const db_config = require ("../authauthor_project/configs/db.configs")
+const user_model = require("../authauthor_project/models/user.models")
 const bcrypt = require ("bcryptjs")
+
+app.use(express.json()) //Middleware to convert json to jsobjeccts
 
 //Connection with mongodb
 mongoose.connect (db_config.DB_URL)
@@ -49,3 +51,6 @@ async function init(){
     }
     
 }
+
+//Stitching the route to the server
+require ("./routes/auth.routes")(app)
