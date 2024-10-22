@@ -28,6 +28,4 @@ exports.signup = async (req, res) => {
         }) //500 : internal server error
     }
     //3. Return the response back to the user
-
-
 }

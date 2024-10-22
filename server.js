@@ -1,3 +1,5 @@
+//localhost:8888/ecomm/api/v1/auth/signup
+
 //Starting file of the project
 const express = require ("express")
 const mongoose = require ("mongoose")
