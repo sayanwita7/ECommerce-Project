@@ -1,0 +1,14 @@
+Three different layers to backend:
+1. Routers      ::: Receptionist
+2. Controllers  ::: Waiter
+3. Models       ::: Cook
+
+Steps to make project:
+1. Create Node.js project [Create parent folder => npm init => name, description, keep index.js, etc]
+2. Define the structure [creating folders, i.e. routers, controllers and models]
+3. Authetication on user: two types: Admin and customer. 
+(a) Registration (b) Login => accesstoken JWT (for expiry time)
+Thus, dependencies needed are (i) Mongoose, (ii) Express, (iii) json web token, (iv) bcryptjs (for password)
+
+[install all packages : npm install bcryptjs express jsonwebtoken mongoose]
+4. model => controller => routers
