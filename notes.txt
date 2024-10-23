@@ -13,6 +13,10 @@ Thus, dependencies needed are (i) Mongoose, (ii) Express, (iii) json web token, 
 [install all packages : npm install bcryptjs express jsonwebtoken mongoose]
 4. model => controller => routers
 
+Revision 1:
 1.First, a server file is created with a following server.configs file in order to store port number, etc. 
 2. Connection with MongoDB is made with appropriate messages for error in connection or succesful connection.
 3. Once connection is established, a function init() is determined so that atleast one admin user is created.bcryptjs is used to encrypt the password (salt based hashing). 
+
+Revision 2:
+So far, API for registering/ Sign up and sign in has been done. Now, for products, creating, getting, updating and deleting APIs are needed.

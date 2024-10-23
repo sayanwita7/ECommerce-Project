@@ -1,6 +1,9 @@
 //Creating a middleware to check if the request body is proper and correct
+const jwt = require ("jsonwebtoken")
 const user_model = require("../models/user.models")
- const verifySignUpBody = async (req, res, next)=> {
+const auth_config = require ("../configs/auth.config")
+
+const verifySignUpBody = async (req, res, next)=> {
     try{
         //Check for name
         if (!req.body.name){
@@ -53,7 +56,48 @@ const verifySignInBody = async (req, res, next)=>{
     next()
 }
 
- module.exports = {
+const verifyToken = (req, res, next)=> {
+    //Check is the token is present in the header
+    const token = req.headers['x-access-token']
+    if (!token){
+        return res.status(403).send({
+            message: "No token found: Unauthorized"
+        })
+    }
+    //If it is the valid token
+    jwt.verify (token, auth_config.secret, async (err, decoded)=>{
+        if (err){
+            return res.status(401).send({
+                message: "Unauthorised !"
+            })
+        }
+        const user = await user_model.findOne({userId: decoded.id})
+        if (!user){
+            return res.status(400).send({
+                message: "Unauthorised ! The user for this token doesn't exist"
+            })
+        }
+        req.user=user
+        next()
+    })
+    //Move to the next step
+    
+}
+const isAdmin = (req, res, next) => {
+    const user = req.user
+    if (user && user.userType == "ADMIN"){
+        next()
+    } 
+    else{
+        return res.status(403).send({
+            message: "Only Admin users are allowed to access this endpoint"
+        })
+    }
+}
+
+module.exports = {
     verifySignUpBody: verifySignUpBody,
-    verifySignInBody: verifySignInBody
+    verifySignInBody: verifySignInBody,
+    verifyToken: verifyToken,
+    isAdmin: isAdmin
  }
